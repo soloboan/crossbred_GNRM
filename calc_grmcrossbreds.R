@@ -1,10 +1,5 @@
-grmcrossbred <- function(genofile,genoformat,
-                         ana_type='yang',
-                         centeringMethod='all',scalingK,
-                         animqrp,admixEst,
-                         missinggeno,
-                         outputformat='matrix',
-                         outputname){
+grmcrossbred <- function(genofile,genoformat,ana_type='yang',centeringMethod='all',scalingK,
+                         animqrp,admixEst,missinggeno,outputformat='matrix',outputname){
   
   if(genoformat!="tped"){
     if(missing(genofile))

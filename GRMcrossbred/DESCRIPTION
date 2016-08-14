@@ -1,9 +1,0 @@
-Package: GRMcrossbred
-Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <soloboan@yahoo.com>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
-LazyData: TRUE
