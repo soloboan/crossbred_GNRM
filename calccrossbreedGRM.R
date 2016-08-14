@@ -1,3 +1,5 @@
+source('../calc_grmcrossbreds.R')
+
 setwd("../")
 X <- read.table("pureB12crossbred.tped")
 X <- X[,-1:-4] - 1
