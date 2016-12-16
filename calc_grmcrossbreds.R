@@ -271,39 +271,14 @@ grmcrossbred <- function(genofile,genoformat,ana_type='yang',centeringMethod='al
   #############
   if(outputformat=="ASREML"){
     cat('....... Output file preparation started ..........\n')
-    require(reshape2)
-    rowiseG <- G
-    rowiseG[upper.tri(rowiseG)] <- NA
-    colnames(rowiseG) <- IID; rownames(rowiseG) <- IID
-    rowiseG <- melt(rowiseG)
-    rowiseGnr <- G
-    colnames(rowiseGnr) <- 1:length(IID); rownames(rowiseGnr) <- 1:length(IID)
-    rowiseGnr <- melt(rowiseGnr)
-    rowiseG <- cbind(rowiseGnr[,1:2],rowiseG)
-    rm(rowiseGnr)
-    rowiseG <- na.omit(rowiseG)
-    rowiseG <- rowiseG[order(rowiseG[,1],rowiseG[,2]),]
-    write.table(rowiseG,paste(outputname,".grm",sep=""),col.names=F,row.names=F,quote=F,sep="\t")
+      Glist <- as.data.frame(which(row(G)>=col(G),arr.ind=TRUE))
+      Glist$G <- G[lower.tri(G,diag=T)]
+      Glist <- Glist[,c(2,1,3)]
+      Glist <- Glist[order(Glist[,2],Glist[,1]),]
+      Glist <- Glist[,c(2,1,3)]
+    write.table(Glist,paste(outputname,".grm",sep=""),col.names=F,row.names=F,quote=F,sep="\t")
     cat(paste('....... Output file exported ',outputname,'.grm',' ..........\n',sep=''))
-    cat('+++++++++ output file columns ++++++++++\n')
-    cat(' recodedID1 recodedID2 originalID1  originalID2 G_values \n\n')
-  }  
-  if(outputformat=="dense"){
-    cat('....... Output file preparation started ..........\n')
-    require(reshape2)
-    rowiseG <- G
-    colnames(rowiseG) <- IID; rownames(rowiseG) <- IID
-    rowiseG <- melt(rowiseG)
-    rowiseGnr <- G
-    colnames(rowiseGnr) <- 1:length(IID); rownames(rowiseGnr) <- 1:length(IID)
-    rowiseGnr <- melt(rowiseGnr)
-    rowiseG <- cbind(rowiseGnr[,1:2],rowiseG)
-    rm(rowiseGnr)
-    write.table(rowiseG,paste(outputname,".grm",sep=""),col.names=F,row.names=F,quote=F,sep="\t")
-    cat(paste('....... Output file exported ',outputname,'.grm',' ..........\n',sep=''))
-    cat('+++++++++ output file columns ++++++++++\n')
-    cat(' recodedID1 recodedID2 originalID1  originalID2 G_values \n\n')
-  } 
+  }
   if(outputformat=="matrix"){
     cat('....... Output file preparation started ..........\n')
     Gmat <- G
